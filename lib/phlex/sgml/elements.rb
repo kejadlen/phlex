@@ -41,6 +41,8 @@ module Phlex::SGML::Elements
 	end
 
 	def register_element(method_name, tag: method_name.name.tr("_", "-"))
+		remove_method(method_name) if method_defined?(method_name, false)
+
 		class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
 			# frozen_string_literal: true
 
@@ -138,6 +140,8 @@ module Phlex::SGML::Elements
 	end
 
 	def __register_void_element__(method_name, tag: method_name.name.tr("_", "-"))
+		remove_method(method_name) if method_defined?(method_name, false)
+
 		class_eval(<<~RUBY, __FILE__, __LINE__ + 1)
 			# frozen_string_literal: true
 
